@@ -25,7 +25,7 @@ from ..utils import (
 
 class LayerBase(ABC):
     def __init__(self, optimizer=None):
-        """An abstract base class inherited by all nerual network layers"""
+        """An abstract base class inherited by all neural network layers"""
         self.X = []
         self.act_fn = None
         self.trainable = True
@@ -2377,8 +2377,8 @@ class SparseEvolution(LayerBase):
 
         k = int(np.prod(W.shape) * self.zeta)
 
-        p_ix, = np.where(W_flat > 0)
-        n_ix, = np.where(W_flat < 0)
+        (p_ix,) = np.where(W_flat > 0)
+        (n_ix,) = np.where(W_flat < 0)
 
         # remove the k largest negative and k smallest positive weights
         k_smallest_p = p_ix[np.argsort(W_flat[p_ix])][:k]
@@ -3817,8 +3817,8 @@ class LSTMCell(LayerBase):
 
         # compute the input to the gate functions at timestep t
         _Go = Zt @ Wo + bo
-        _Gf = Zt @ Wf + bo
-        _Gu = Zt @ Wu + bo
+        _Gf = Zt @ Wf + bf
+        _Gu = Zt @ Wu + bu
         _Gc = Zt @ Wc + bc
 
         # compute gradients wrt the *input* to each gate
